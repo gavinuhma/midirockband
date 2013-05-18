@@ -32,21 +32,34 @@ function main() {
       'g': conn.send.bind(conn, 'maj', opts.key + 7),
       'h': conn.send.bind(conn, 'min', opts.key + 9),
       'j': conn.send.bind(conn, 'dim', opts.key + 11),
-      'k': conn.send.bind(conn, 'maj', opts.key + 12)
+      'k': conn.send.bind(conn, 'maj', opts.key + 12),
 
-      'q': conn.send.bind(conn, 'note', 12 + opts.key);
-      'w': conn.send.bind(conn, 'note', 12 + opts.key + 2);
-      'e': conn.send.bind(conn, 'note', 12 + opts.key + 4)
-      'r': conn.send.bind(conn, 'note', 12 + opts.key + 5)
-      't': conn.send.bind(conn, 'note', 12 + opts.key + 7)
-      'y': conn.send.bind(conn, 'note', 12 + opts.key + 9)
-      'u': conn.send.bind(conn, 'note', 12 + opts.key + 11)
-      'i': conn.send.bind(conn, 'note', 12 + opts.key + 12)
+      'q': conn.send.bind(conn, 'note', 12 + opts.key),
+      'w': conn.send.bind(conn, 'note', 12 + opts.key + 2),
+      'e': conn.send.bind(conn, 'note', 12 + opts.key + 4),
+      'r': conn.send.bind(conn, 'note', 12 + opts.key + 5),
+      't': conn.send.bind(conn, 'note', 12 + opts.key + 7),
+      'y': conn.send.bind(conn, 'note', 12 + opts.key + 9),
+      'u': conn.send.bind(conn, 'note', 12 + opts.key + 11),
+      'i': conn.send.bind(conn, 'note', 12 + opts.key + 12),
+
+      'z': conn.config.bind(conn, 'octave', -12),
+      'x': conn.config.bind(conn, 'octave', 12),
+      'c': conn.config.bind(conn, 'program', -1),
+      'v': conn.config.bind(conn, 'program', 1),
+      'b': conn.config.bind(conn, 'key', -1),
+      'n': conn.config.bind(conn, 'key', 1),
     };
 
-  if (!action[key.name]) return;
+    function changeStats(stat, diff) {
+      opts[stat] = opts[stat] + diff;
+      console.log(stat, opts[stat]);
+    }
 
-  action[key.name]();
+    if (!action[key.name]) return;
+
+    action[key.name]();
+  });
 
   process.stdin.on('mousepress', function (info) {
     console.log('got "mousepress" event at %d x %d', info.x, info.y);
