@@ -1,0 +1,10 @@
+{
+  "name": "midirockband",
+  "version": "0.0.1",
+  "dependencies": {
+    "midi": "~0.7.0"
+  },
+  "engine": {
+    "node": ">=0.10"
+  }
+}
