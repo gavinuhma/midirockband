@@ -11,6 +11,7 @@ function Connection(host, port) {
 }
 
 Connection.prototype.listen = function() {
+  console.log('port', this.port);
   this.io = io.listen(this.port);
   this.timer;
 
@@ -28,6 +29,7 @@ Connection.prototype.listen = function() {
 
       this.timer = setTimeout(function() {
         this.sockets[socket.id].sounds(data.diatonic, data.note);
+        socket.emit('sound', data.note);
       }.bind(this), 100);
     }.bind(this));
 

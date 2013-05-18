@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>
+<script>
+var socket = io.connect('http://127.0.0.1:8080');
+socket.on('sound', function (data) {
+  console.log(data);
+  keys['a'].series.append(new Date().getTime(), Math.random() * 10000);
+});
+</script>
 <script type="text/javascript" src="http://github.com/joewalnes/smoothie/raw/master/smoothie.js"></script>
 <script type="text/javascript">
 // Randomly add a data point every 500ms
 //var random = new TimeSeries();
 //var random2 = new TimeSeries();
 
-setInterval(function() {
+/*setInterval(function() {
   keys['a'].series.append(new Date().getTime(), Math.random() * 10000);
   keys['s'].series.append(new Date().getTime(), Math.random() * 10000);
   keys['d'].series.append(new Date().getTime(), Math.random() * 10000);
-}, 500);
+}, 500);*/
 
 var keys = {
   a: {series: new TimeSeries(), color: {r:255,g:0,b:0}},
