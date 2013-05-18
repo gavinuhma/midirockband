@@ -1,3 +1,4 @@
 node_modules/*
 speaker/node_modules/*
+npm-debug.log*
 *.swp
