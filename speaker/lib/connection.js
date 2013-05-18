@@ -12,7 +12,7 @@ function Connection(host, port) {
 Connection.prototype.listen = function() {
   this.io = io.listen(this.port);
 
-  this.io.sockets.on(connection(socket) {
+  this.io.sockets.on('connection', function(socket) {
     this.sockets[socket.id] = socket;
 
     socket.on('note', function(data) {
