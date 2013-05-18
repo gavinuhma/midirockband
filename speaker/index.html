@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="http://github.com/joewalnes/smoothie/raw/master/smoothie.js"></script>
+<script type="text/javascript">
+// Randomly add a data point every 500ms
+//var random = new TimeSeries();
+//var random2 = new TimeSeries();
+
+setInterval(function() {
+  keys['a'].series.append(new Date().getTime(), Math.random() * 10000);
+  keys['s'].series.append(new Date().getTime(), Math.random() * 10000);
+  keys['d'].series.append(new Date().getTime(), Math.random() * 10000);
+}, 500);
+
+var keys = {
+  a: {series: new TimeSeries(), color: {r:255,g:0,b:0}},
+  s: {series: new TimeSeries(), color: {r:0,g:255,b:0}},
+  d: {series: new TimeSeries(), color: {r:0,g:0,b:255}}
+};
+
+function addSeries(key) {
+  var a = keys[key].color;
+  chart.addTimeSeries(keys[key].series, {
+    strokeStyle: 'rgba(' + a.r + ', ' + a.g + ', ' + a.b + ', 1)',
+    fillStyle: 'rgba(' + a.r + ', ' + a.g + ', ' + a.b + ', 0.2)',
+    lineWidth: 4
+  });
+}
+
+var chart = new SmoothieChart();
+
+function createTimeline() {
+  addSeries('a');
+  addSeries('s');
+  addSeries('d');
+  chart.streamTo(document.getElementById("chart"), 500);
+}
+</script>
+</head>
+<body onload="createTimeline()">
+<p>The <em>hello world</em> of <a href="../">Smoothie Charts</a>. View source.</p>
+<canvas id="chart" width="400" height="100"></canvas>
+</body>
+</html>
