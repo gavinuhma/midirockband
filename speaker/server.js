@@ -7,7 +7,7 @@ process.stdin.resume();
 
 var opts = {
   'key':44,
-  'bank':2,
+  'bank':1,
   'program':33,
   'rest':0,
   'octave':0
@@ -89,6 +89,22 @@ process.stdin.on('keypress', function (ch, key) {
   if (key.name == 'x') {
     opts.octave += 12;
     console.log('octave', opts.octave);
+  }
+  if (key.name == 'c') {
+    opts.program -= 1;
+    console.log('program', opts.program);
+  }
+  if (key.name == 'v') {
+    opts.program += 1;
+    console.log('program', opts.program);
+  }
+  if (key.name == 'b') {
+    opts.key -= 1;
+    console.log('key', opts.key);
+  }
+  if (key.name == 'n') {
+    opts.key += 1;
+    console.log('key', opts.key);
   }
 });
 
