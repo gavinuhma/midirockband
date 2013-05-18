@@ -1,3 +1,4 @@
+var coremidi = require('coremidi');
 var keypress = require('keypress');
 keypress(process.stdin);
 keypress.enableMouse(process.stdout);
@@ -5,8 +6,56 @@ process.stdin.setRawMode(true);
 process.stdin.resume();
 
 var opts = {
-  'key':44
+  'key':44,
+  'bank':2,
+  'program':33,
+  'rest':0
 };
+
+function createMidi() {
+  return require('midi-api')().bank(opts.bank).program(opts.program).rest(opts.rest);
+}
+
+function endMidi(midi, rest) {
+  midi.rest(rest || 1000);
+  midi.noteOff();
+  midi.pipe(coremidi());
+}
+
+function note(root) {
+  console.log('play maj');
+  var midi = createMidi();  
+  midi.noteOff().noteOn(root);
+  endMidi(midi, 500);
+}
+
+function maj(root) {
+  console.log('play maj');
+  var midi = createMidi();  
+  midi.noteOff().noteOn(root).noteOn(root + 4).noteOn(root + 7);
+  endMidi(midi);
+}
+
+function maj7(root) {
+  console.log('play maj7');
+  var midi = createMidi();  
+  midi.noteOff().noteOn(root).noteOn(root + 4).noteOn(root + 7).noteOn(root + 11);
+  endMidi(midi);
+}
+
+function min(root) {
+  console.log('play min');
+  var midi = createMidi();  
+  midi.noteOff().noteOn(root).noteOn(root + 3).noteOn(root + 7);
+  endMidi(midi);
+}
+
+function dim(root) {
+  console.log('play dim');
+  var midi = createMidi();  
+  midi.noteOff().noteOn(root).noteOn(root + 3).noteOn(root + 6);
+  endMidi(midi);
+}
 
 // listen for the "keypress" event
 process.stdin.on('keypress', function (ch, key) {
