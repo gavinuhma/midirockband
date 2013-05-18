@@ -1,13 +1,26 @@
-var config = exports; exports.constructor = function config() {};
+var connection = exports; exports.constructor = function connection() {};
 
-var fs = require('fs');
-var path = require('path');
-var _ = require('lodash');
+var io = require('socket.io');
+var SoundManager = require('./sound_manager').SoundManager;
 
-config.load = function() {
-  var conf = fs.readFileSync(path.join(__dirname, '/config/config.json'));
-  conf = JSON.parse(conf);
-  _.each(conf, function(value, key) {
-    config[key] = value;
-  });
+function Connection(host, port) {
+  this.host = host;
+  this.port = port;
+  this.soundManager = new SoundManager();
+}
+
+Connection.prototype.listen = function() {
+  this.io = io.listen(this.port);
+
+  this.io.sockets.on(connection(socket) {
+    this.sockets[socket.id] = socket;
+
+    socket.on('note', function(data) {
+      this.soundManager.sounds[socket.diatonic](data.note);
+    });
+
+
+  }.bind(this));
 };
+
+connection.Connection = Connection;
