@@ -33,20 +33,20 @@ function main() {
       'h': conn.send.bind(conn, 'min', opts.key + 9),
       'j': conn.send.bind(conn, 'dim', opts.key + 11),
       'k': conn.send.bind(conn, 'maj', opts.key + 12)
+
+      'q': conn.send.bind(conn, 'note', 12 + opts.key);
+      'w': conn.send.bind(conn, 'note', 12 + opts.key + 2);
+      'e': conn.send.bind(conn, 'note', 12 + opts.key + 4)
+      'r': conn.send.bind(conn, 'note', 12 + opts.key + 5)
+      't': conn.send.bind(conn, 'note', 12 + opts.key + 7)
+      'y': conn.send.bind(conn, 'note', 12 + opts.key + 9)
+      'u': conn.send.bind(conn, 'note', 12 + opts.key + 11)
+      'i': conn.send.bind(conn, 'note', 12 + opts.key + 12)
     };
 
-    action[key.name]();
-/*
-    if (key.name == 'q') note(12 + opts.key);
-    if (key.name == 'w') note(12 + opts.key + 2);
-    if (key.name == 'e') note(12 + opts.key + 4);
-    if (key.name == 'r') note(12 + opts.key + 5);
-    if (key.name == 't') note(12 + opts.key + 7);
-    if (key.name == 'y') note(12 + opts.key + 9);
-    if (key.name == 'u') note(12 + opts.key + 11);
-    if (key.name == 'i') note(12 + opts.key + 12);
-*/
-  });
+  if (!action[key.name]) return;
+
+  action[key.name]();
 
   process.stdin.on('mousepress', function (info) {
     console.log('got "mousepress" event at %d x %d', info.x, info.y);

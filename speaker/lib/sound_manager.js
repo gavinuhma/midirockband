@@ -25,33 +25,29 @@ function endMidi(midi, rest) {
 SoundManager.prototype.sounds = {
   'note': function(note) {
     console.log('note', note);
-    var root = note;
     var midi = createMidi();  
-    midi.noteOff().noteOn(root);
+    midi.noteOff().noteOn(note);
     endMidi(midi, 500);
   },
 
   'maj': function(note) {
     console.log('maj', note);
-    var root = note;
     var midi = createMidi();  
-    midi.noteOff().noteOn(root).noteOn(root + 4).noteOn(root + 7);
+    midi.noteOff().noteOn(note).noteOn(note + 4).noteOn(note + 7);
     endMidi(midi, 500);
   },
 
   'min': function(note) {
     console.log('min', note);
-    var root = note;
     var midi = createMidi();  
-    midi.noteOff().noteOn(root).noteOn(root + 4).noteOn(root + 7).noteOn(root + 11);
+    midi.noteOff().noteOn(note).noteOn(note + 4).noteOn(note + 7).noteOn(note + 11);
     endMidi(midi, 500);
   },
 
   'dim': function(note) {
     console.log('dim', note);
-    var root = note;
     var midi = createMidi();  
-    midi.noteOff().noteOn(root).noteOn(root + 3).noteOn(root + 6);
+    midi.noteOff().noteOn(note).noteOn(note + 3).noteOn(note + 6);
     endMidi(midi, 500);
   }
 };
