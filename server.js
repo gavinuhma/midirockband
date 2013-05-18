@@ -9,20 +9,18 @@ function main() {
   conn.listen();
 
   keypress(process.stdin);
-  keypress.enableMouse(process.stdout);
-  process.stdin.setRawMode(true);
-  process.stdin.resume();
-
   var opts = {
     'key':44
   };
 
   // listen for the "keypress" event
+  var drumMode = 0;
   process.stdin.on('keypress', function (ch, key) {
+
+    console.log('helloooo', ch, key, arguments);
     //console.log('got "keypress"', key);
-    if (key && key.ctrl && key.name == 'c') {
-      process.stdin.pause();
-    }
+
+ //   if (key.name === '\') drumMode = 1 - drumMode;
 
     var action = {
       'a': conn.send.bind(conn, 'maj', opts.key),
@@ -50,26 +48,17 @@ function main() {
       'b': conn.config.bind(conn, 'key', -1),
       'n': conn.config.bind(conn, 'key', 1),
     };
-
-    function changeStats(stat, diff) {
-      opts[stat] = opts[stat] + diff;
-      console.log(stat, opts[stat]);
+    if (!!drumMode && drum[key.name]) {
+//      return drum[key.name]();
     }
 
-    if (!action[key.name]) return;
+  //  if (!action[key.name]) return;
 
     action[key.name]();
   });
 
-  process.stdin.on('mousepress', function (info) {
-    console.log('got "mousepress" event at %d x %d', info.x, info.y);
-  });
-
-  process.on('exit', function () {
-    // disable mouse on exit, so that the state
-    // is back to normal for the terminal
-    keypress.disableMouse(process.stdout);
-  });
+  process.stdin.setRawMode(true);
+  process.stdin.resume();
 }
 
 main();
