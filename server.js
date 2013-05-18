@@ -11,16 +11,12 @@ function main() {
   keypress(process.stdin);
   var opts = {
     'key':44
-  };
+  }
 
   // listen for the "keypress" event
   var drumMode = 0;
+  var timeout = null;
   process.stdin.on('keypress', function (ch, key) {
-
-    console.log('helloooo', ch, key, arguments);
-    //console.log('got "keypress"', key);
-
- //   if (key.name === '\') drumMode = 1 - drumMode;
 
     var action = {
       'a': conn.send.bind(conn, 'maj', opts.key),
@@ -49,11 +45,9 @@ function main() {
       'n': conn.config.bind(conn, 'key', 1),
     };
     if (!!drumMode && drum[key.name]) {
-//      return drum[key.name]();
+      // return drum[key.name]();
     }
-
-  //  if (!action[key.name]) return;
-
+  if (!key || !action[key.name]) return;
     action[key.name]();
   });
 
