@@ -17,7 +17,7 @@ Connection.prototype.listen = function() {
     this.sockets[socket.id] = socket;
 
     socket.on('note', function(data) {
-      this.soundManager.sounds[socket.diatonic](data.note);
+      this.soundManager.sounds[data.diatonic](data.note);
     }.bind(this));
 
 
