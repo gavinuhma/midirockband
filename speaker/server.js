@@ -9,7 +9,8 @@ var opts = {
   'key':44,
   'bank':2,
   'program':33,
-  'rest':0
+  'rest':0,
+  'octave':0
 };
 
 function createMidi() {
@@ -23,7 +24,7 @@ function endMidi(midi, rest) {
 }
 
 function note(root) {
-  console.log('play maj');
+  console.log('play note');
   var midi = createMidi();  
   midi.noteOff().noteOn(root);
   endMidi(midi, 500);
@@ -72,14 +73,23 @@ process.stdin.on('keypress', function (ch, key) {
   if (key.name == 'j') dim(opts.key + 11);
   if (key.name == 'k') maj(opts.key + 12);
 
-  if (key.name == 'q') note(12 + opts.key);
-  if (key.name == 'w') note(12 + opts.key + 2);
-  if (key.name == 'e') note(12 + opts.key + 4);
-  if (key.name == 'r') note(12 + opts.key + 5);
-  if (key.name == 't') note(12 + opts.key + 7);
-  if (key.name == 'y') note(12 + opts.key + 9);
-  if (key.name == 'u') note(12 + opts.key + 11);
-  if (key.name == 'i') note(12 + opts.key + 12);
+  if (key.name == 'q') note(opts.octave + opts.key);
+  if (key.name == 'w') note(opts.octave + opts.key + 2);
+  if (key.name == 'e') note(opts.octave + opts.key + 4);
+  if (key.name == 'r') note(opts.octave + opts.key + 5);
+  if (key.name == 't') note(opts.octave + opts.key + 7);
+  if (key.name == 'y') note(opts.octave + opts.key + 9);
+  if (key.name == 'u') note(opts.octave + opts.key + 11);
+  if (key.name == 'i') note(opts.octave + opts.key + 12);
+
+  if (key.name == 'z') {
+    opts.octave -= 12;
+    console.log('octave', opts.octave);
+  }
+  if (key.name == 'x') {
+    opts.octave += 12;
+    console.log('octave', opts.octave);
+  }
 });
 
 process.stdin.on('mousepress', function (info) {

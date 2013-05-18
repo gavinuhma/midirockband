@@ -1,2 +1,3 @@
 node_modules/*
+speaker/node_modules/*
 *.swp
