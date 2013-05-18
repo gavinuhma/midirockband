@@ -3,8 +3,6 @@
   "version": "0.0.1",
   "dependencies": {
     "midi": "~0.7.0",
-    "midi-api": "~0.1.8",
-    "coremidi": "~0.1.0",
     "keypress": "~0.1.0"
   },
   "engine": {
