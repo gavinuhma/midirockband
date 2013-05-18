@@ -1,54 +1,66 @@
 var coremidi = require('coremidi');
-var opts = {
-  'key':44,
-  'bank':1,
-  'program':1,
-  'rest':0,
-  'octave':0
-};
-
+var midiApi = require('midi-api');
 var soundManager = exports; exports.constructor = function soundManager() {};
 
 function SoundManager() {
+  this.opts = {
+    'key': 44,
+    'bank': 1,
+    'program': 1,
+    'rest': 0,
+    'octave': 0
+  };
 }
 
-function createMidi() {
-  return require('midi-api')().bank(opts.bank).program(opts.program).rest(opts.rest);
-}
+SoundManager.prototype.createMidi = function() {
+  return midiApi()
+    .bank(this.opts.bank)
+    .program(this.opts.program)
+    .rest(this.opts.rest);
+};
 
-function endMidi(midi, rest) {
+SoundManager.prototype.endMidi = function(midi, rest) {
   midi.rest(rest || 1000);
   midi.noteOff();
   midi.pipe(coremidi());
-}
+};
 
-SoundManager.prototype.sounds = {
-  'note': function(note) {
-    console.log('note', note);
-    var midi = createMidi();  
-    midi.noteOff().noteOn(note);
-    endMidi(midi, 500);
-  },
+SoundManager.prototype.change = function(data) {
+  this.opts[data.stat] = this.opts[data.stat] + data.diff
+};
 
-  'maj': function(note) {
-    console.log('maj', note);
-    var midi = createMidi();  
-    midi.noteOff().noteOn(note).noteOn(note + 4).noteOn(note + 7);
-    endMidi(midi, 500);
-  },
+SoundManager.prototype.sounds = function(diatonic, note) {
+  console.log(diatonic, note, 'program', this.opts.program, 'key', this.opts.key, 'octave', this.opts.octave);
+  switch (diatonic) {
+    case 'note':
+      var midi = this.createMidi();  
+      midi.noteOff().noteOn(note);
+      this.endMidi(midi);
+      break;
 
-  'min': function(note) {
-    console.log('min', note);
-    var midi = createMidi();  
-    midi.noteOff().noteOn(note).noteOn(note + 4).noteOn(note + 7).noteOn(note + 11);
-    endMidi(midi, 500);
-  },
+    case 'maj':
+      var midi = this.createMidi();  
+      midi.noteOff().noteOn(note).noteOn(note + 4).noteOn(note + 7);
+      this.endMidi(midi);
+      break;
 
-  'dim': function(note) {
-    console.log('dim', note);
-    var midi = createMidi();  
-    midi.noteOff().noteOn(note).noteOn(note + 3).noteOn(note + 6);
-    endMidi(midi, 500);
+    case 'min':
+      var midi = this.createMidi();  
+      midi.noteOff().noteOn(note).noteOn(note + 3).noteOn(note + 7);
+      this.endMidi(midi);
+      break;
+
+    case 'maj7':
+      var midi = this.createMidi();  
+      midi.noteOff().noteOn(note).noteOn(note + 4).noteOn(note + 7).noteOn(note + 11);
+      this.endMidi(midi);
+      break;
+
+    case 'dim':
+      var midi = this.createMidi();  
+      midi.noteOff().noteOn(note).noteOn(note + 3).noteOn(note + 6);
+      this.endMidi(midi);
+      break;
   }
 };
 

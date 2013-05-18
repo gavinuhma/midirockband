@@ -7,7 +7,8 @@
     "coremidi": "~0.1.0",
     "keypress": "~0.1.0",
     "socket.io": "~0.9.14",
-    "lodash": "~1.2.1"
+    "lodash": "~1.2.1",
+    "async": "~0.2.8"
   },
   "engine": {
     "node": ">=0.10"
