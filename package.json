@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "dependencies": {
     "midi": "~0.7.0",
-    "keypress": "~0.1.0"
+    "keypress": "~0.1.0",
+    "socket.io-client": "~0.9.11"
   },
   "engine": {
     "node": ">=0.10"
