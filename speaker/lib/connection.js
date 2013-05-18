@@ -7,6 +7,7 @@ function Connection(host, port) {
   this.host = host;
   this.port = port;
   this.soundManager = new SoundManager();
+  this.sockets = {};
 }
 
 Connection.prototype.listen = function() {
