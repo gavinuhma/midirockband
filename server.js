@@ -2,7 +2,7 @@ var Connection = require('./lib/connection').Connection;
 
 var keypress = require('keypress');
 
-var conn = new Connection('192.168.2.106', 6666);
+var conn = new Connection('192.168.2.106', 8080);
 
 
 function main() {
